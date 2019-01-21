@@ -10,6 +10,7 @@ import { ChartDoughnutComponent } from './chart-doughnut/chart-doughnut.componen
 import { ChartRadarComponent } from './chart-radar/chart-radar.component';
 import { ChartPieComponent } from './chart-pie/chart-pie.component';
 import { ChartPolarComponent } from './chart-polar/chart-polar.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ChartPolarComponent } from './chart-polar/chart-polar.component';
     ChartDoughnutComponent,
     ChartRadarComponent,
     ChartPieComponent,
-    ChartPolarComponent
+    ChartPolarComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
