@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-chart-line',
@@ -64,6 +65,42 @@ export class ChartLineComponent implements OnInit {
   public chartHovered(e: any): void {
     console.log(e);
   }
+
+  public capture() {
+    const chart = document.getElementById('chart');
+    const output = document.getElementById('output');
+    const retoutput = this.takeHighResScreenshot(chart, output, 1 );
+    console.log(retoutput);
+  }
+  takeHighResScreenshot(srcEl, destIMG, scaleFactor) {
+    // Save original size of element
+    const originalWidth = srcEl.offsetWidth;
+    const originalHeight = srcEl.offsetHeight;
+    // Force px size (no %, EMs, etc)
+    srcEl.style.width = originalWidth + 'px';
+    srcEl.style.height = originalHeight + 'px';
+    // Create scaled canvas
+    const scaledCanvas = document.createElement('canvas');
+    // scaledCanvas.width = originalWidth * scaleFactor;
+    // scaledCanvas.height = originalHeight * scaleFactor;
+    scaledCanvas.width = 1980;
+    scaledCanvas.height = 1080;
+    // scaledCanvas.style.width = originalWidth + 'px';
+    // scaledCanvas.style.height = originalHeight + 'px';
+    scaledCanvas.style.width = 1980 + 'px';
+    scaledCanvas.style.height = 1080 + 'px';
+    const scaledContext = scaledCanvas.getContext('2d');
+    scaledContext.scale(scaleFactor, scaleFactor);
+
+    const output =  html2canvas(srcEl, { canvas: scaledCanvas })
+      .then(function(canvas) {
+        destIMG.src = canvas.toDataURL('image/png');
+        // srcEl.style.display = 'none';
+        return canvas.toDataURL('image/png');
+      });
+    return output;
+  }
+
   constructor() { }
 
   ngOnInit() {
